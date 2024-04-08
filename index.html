@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEARN - Educación Accesible para Comunidades Rurales</title>
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding-top: 15px;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            width: 100%;
+            top: 20px;
+            z-index: 998;
+        }
+        header .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header .header-content a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        main {
+            padding: 20px;
+            background-color: #fff;
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        section {
+            display: none;
+        }
+        section.active {
+            display: block;
+        }
+        section h2 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        section p {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        section ul li {
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        /* Estilos para la burbuja de asistencia técnica */
+        .floating-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .floating-bubble:hover {
+            background-color: #0056b3;
+        }
+        /* Estilos para la burbuja de asistencia secundaria */
+        .secondary-bubble {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            border-radius: 10px;
+            width: 200px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+        .secondary-bubble form {
+            display: flex;
+            flex-direction: column;
+        }
+        .secondary-bubble label {
+            margin-bottom: 5px;
+        }
+        .secondary-bubble input {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .secondary-bubble button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .secondary-bubble button:hover {
+            background-color: #0056b3;
+        }
+        /* Estilos para la sección de suscripciones */
+        .subscription-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .subscription {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        .subscription h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .subscription p {
+            font-size: 16px;
+        }
+        .subscription ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .subscription ul li {
+            margin-bottom: 10px;
+        }
+        /* Estilos adicionales */
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+ <header>
+        <div class="header-content">
+            <h1>LEARN</h1>
+            <div>
+                <a href="#login" onclick="showSection('login')">Iniciar Sesión</a>
+                <a href="#crear-cuenta" onclick="showSection('crear-cuenta')">Crear Cuenta</a>
+            </div>
+        </div>
+    </header>
+  
+<nav>
+	<a href="#principal" onclick="showSection('principal')">Inicio</a>
+        <a href="#comunidades" onclick="showSection('comunidades')">Comunidades Rurales</a>
+        <a href="#nosotros" onclick="showSection('nosotros')">Nosotros</a>
+        <a href="#suscripciones" onclick="showSection('suscripciones')">Suscripciones</a>
+        <a href="#contacto" onclick="showSection('contacto')">Contáctanos</a>
+        <a href="#donativo" onclick="showSection('donativo')">Donar</a>
+    </nav>
+    <main>
+        <section id="principal" class="active">
+            <h2>Bienvenido a LEARN</h2>
+            <p>LEARN se dedica a proporcionar educación accesible para comunidades rurales. Nuestra misión es asegurar que todos tengan acceso a una educación de calidad, independientemente de su ubicación o recursos.</p>
+            <p>Explora nuestras secciones para conocer más sobre nuestros programas educativos, nuestra colaboración con las comunidades rurales y cómo puedes contribuir a nuestra causa.</p>
+            <h2>Educación</h2>
+            <p>En LEARN reconocemos el desafío que enfrentan los niños y jóvenes en estas áreas, con un acceso limitado a recursos educativos. Por lo tanto, hemos desarrollado programas adaptados a sus necesidades específicas, que incluyen:</p>
+            <ul>
+                <p><strong>Programas educativos personalizados:</strong> Diseñados para abordar las lagunas en la educación tradicional y adaptados al contexto rural.</p>
+                <p><strong>Contenido gamificado:</strong> Utilizamos elementos de juego para hacer que el aprendizaje sea más atractivo y motivador para los estudiantes.</p>
+                <p><strong>Acceso sin conexión a internet:</strong> Nuestra plataforma educativa es accesible incluso en áreas con conectividad limitada, a través de una aplicación móvil que permite la descarga de contenido para su uso offline.</p>
+            </ul>
+            <img src="educacion.jpg" alt="Imagen de educación">
+        </section>        
+
+	<section id="comunidades">
+            <h2>Comunidades Rurales</h2>
+            <p>Trabajamos en estrecha colaboración con las comunidades rurales para comprender sus necesidades y desafíos específicos en el ámbito educativo. Nuestra presencia en estas áreas nos permite:</p>
+            <ul>
+                <li><strong>Desarrollar soluciones adaptadas:</strong> Creamos programas educativos que se alinean con la cultura, el contexto y los recursos disponibles en las comunidades rurales.</li>
+                <li><strong>Establecer centros de aprendizaje:</strong> Colaboramos con las autoridades locales y las organizaciones comunitarias para establecer espacios de aprendizaje equipados con tecnología y recursos educativos.</li>
+                <li><strong>Proporcionar apoyo continuo:</strong> Ofrecemos capacitación y asistencia técnica a maestros y líderes comunitarios para garantizar el éxito a largo plazo de nuestros programas educativos.</li>
+            </ul>
+            <img src="comunidades.png" alt="Imagen de comunidades rurales">
+        </section>
+        <section id="comunidades">
+            <h2>Comunidades Rurales</h2>
+            <p>Trabajamos en estrecha colaboración con las comunidades rurales para comprender sus necesidades y desafíos específicos en el ámbito educativo. Nuestra presencia en estas áreas nos permite:</p>
+            <ul>
+                <li><strong>Desarrollar soluciones adaptadas:</strong> Creamos programas educativos que se alinean con la cultura, el contexto y los recursos disponibles en las comunidades rurales.</li>
+                <li><strong>Establecer centros de aprendizaje:</strong> Colaboramos con las autoridades locales y las organizaciones comunitarias para establecer espacios de aprendizaje equipados con tecnología y recursos educativos.</li>
+                <li><strong>Proporcionar apoyo continuo:</strong> Ofrecemos capacitación y asistencia técnica a maestros y líderes comunitarios para garantizar el éxito a largo plazo de nuestros programas educativos.</li>
+            </ul>
+            <img src="comunidades.jpg" alt="Imagen de comunidades rurales">
+        </section>
+        <section id="nosotros">
+            <h2>Nosotros</h2>
+            <p>Somos una organización comprometida con la inclusión educativa y el desarrollo sostenible de las comunidades rurales. Nuestra misión es:</p>
+            <ul>
+                <li><strong>Empoderar a las comunidades:</strong> Creemos en el potencial de cada individuo y nos esforzamos por proporcionarles las herramientas necesarias para alcanzar sus metas educativas y profesionales.</li>
+                <li><strong>Crear oportunidades:</strong> Trabajamos para reducir la brecha educativa y brindar igualdad de acceso a la educación, independientemente del lugar de residencia o el nivel socioeconómico.</li>
+                <li><strong>Fomentar el cambio:</strong> Buscamos inspirar un cambio positivo en el sistema educativo, promoviendo enfoques innovadores y colaborativos que beneficien a todas las partes interesadas.</li>
+            </ul>
+            <img src="nosotros.jpg" alt="Imagen de nuestro equipo">
+        </section>
+        <section id="suscripciones">
+            <h2>Suscripciones</h2>
+            <div class="subscription-container">
+                <div class="subscription">
+                    <h3>Modelo Freemium</h3>
+                    <p>Ofrecemos una versión básica gratuita de nuestra plataforma con contenido limitado. Los usuarios pueden acceder a características adicionales mediante una suscripción premium.</p>
+                    <ul>
+                        <li>Acceso gratuito offline</li>
+                        <li>Contenido ilimitado</li>
+                        <li>Opciones de suscripción premium</li>
+                    </ul>
+                    <button onclick="showSection('crear-cuenta')">¡Regístrate!</button>
+                </div>
+                <div class="subscription">
+                    <h3>Suscripción Mensual</h3>
+                    <p>Ofrecemos una versión premium de nuestra plataforma que incluye evaluaciones y seguimiento personalizado. Los usuarios pagan una tarifa mensual por acceso continuo. Este modelo es ideal para aquellos que buscan una experiencia educativa completa y avanzada.</p>
+                    <ul>
+                        <li>Acceso gratuito offline</li>
+                        <li>Contenido ilimitado</li>
+                        <li>Opciones de suscripción premium</li>
+                        <li>Evaluaciones y atención de expertos</li>
+                        <li>Tarifa mensual</li>
+                    </ul>
+                    <button onclick="showSection('crear-cuenta')">¡Regístrate!</button>
+                </div>
+            </div>
+        </section>
+        <section id="contacto">
+            <h2>Contáctanos</h2>
+            <p>¿Tienes preguntas o comentarios? Ponte en contacto con nosotros...</p>
+            <!-- Aquí se incluiría un formulario de contacto o información de contacto -->
+            <p>Teléfono: +1 (123) 456-7890</p>
+            <p>Correo electrónico: info@learn.com</p>
+            <p>Dirección: Av. Falsa #123, Ciudad Ficticia, México</p>
+        </section>
+        <section id="donativo">
+            <h2>Donativos</h2>
+            <p>Tu generosidad puede marcar la diferencia. Ayúdanos a continuar con nuestra misión de proporcionar educación accesible para comunidades rurales. ¡Haz tu donativo hoy!</p>
+            <p>¡Pronto estará disponible el enlace para donar!</p>
+        </section>
+        <section id="login">
+            <h2>Iniciar Sesión</h2>
+            <!-- Aquí se incluiría el formulario de inicio de sesión -->
+            <p>¡Pronto estará disponible el formulario de inicio de sesión!</p>
+        </section>
+        <section id="crear-cuenta">
+            <h2>Crear Cuenta</h2>
+            <!-- Aquí se incluiría el formulario de creación de cuenta -->
+            <p>¡Pronto estará disponible el formulario de creación de cuenta!</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 LEARN - Educación Accesible para Comunidades Rurales</p>
+    </footer>
+<!-- Burbuja flotante de asistencia técnica -->
+<div class="floating-bubble" onclick="toggleSecondaryBubble()">Asistencia</div>
+<div class="secondary-bubble" id="secondaryBubble">
+    <form>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="phone">Teléfono:</label>
+        <input type="tel" id="phone" name="phone"><br>
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+</div>
+<div id="notification" style="display: none;">Datos enviados correctamente.</div>
+
+<script>
+            let currentSectionIndex = 0;
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+                const sectionId = this.getAttribute('href').substring(1);
+                showSection(sectionId);
+            });
+        });
+
+        function showSection(sectionId) {
+            const sectionToShow = document.getElementById(sectionId);
+            sections[currentSectionIndex].classList.remove('active');
+            sectionToShow.classList.add('active');
+            currentSectionIndex = [...sections].indexOf(sectionToShow);
+            
+            // Desplazar al inicio de la página después de cambiar la clase de la sección
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Desplazamiento suave
+            });
+    }
+
+    function toggleSecondaryBubble() {
+        var bubble = document.getElementById("secondaryBubble");
+        bubble.style.display = bubble.style.display === "none" ? "block" : "none";
+    }
+
+
+    function submitForm() {
+        // Aquí puedes agregar el código para enviar los datos del formulario a través de AJAX o cualquier otro método.
+        // Por ahora, simplemente mostraremos la notificación y limpiaremos el formulario.
+
+        var notification = document.getElementById("notification");
+        notification.style.display = "block";
+
+        setTimeout(function() {
+            notification.style.display = "none";
+            resetForm();
+        }, 10);
+    }
+
+    function resetForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+    }
+</script>
+</body>
+</html>
